@@ -39,6 +39,7 @@ body {
     align-items: center;
     border: f.cvrt_px(vars.$regular-border-w) solid vars.$color-primary;
     gap: f.cvrt_px(vars.$regular-padding);
+
     h1:first-child {
       color: vars.$color-tertiary;
       text-decoration: f.cvrt_px(vars.$regular-border-w) underline
@@ -75,6 +76,8 @@ body {
     section:nth-of-type(2) {
       width: 100%;
       display: flex;
+      justify-content: center;
+      align-items: center;
       @include article-props(
         $index: 1,
         $color: vars.$color-tertiary,
