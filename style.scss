@@ -1,0 +1,86 @@
+// Modify the exercise 2 code about mixin by creating a module for all declared variables.
+// Then, create a module with a function. This function should accept a number as parameter and return the value converted into rem. 1rem is equal to 16px
+// This function should be applied in the main stylesheet, so that the only sizing unit is rem.
+
+// **Suggestion:**
+
+// @function rem(...
+// @return calc(...
+// }
+
+// @use "functions" as f;
+// ...
+
+@use "./dist/vars.scss";
+@use "./dist/convert_fun.scss" as f;
+
+@mixin article-props(
+  $index,
+  $color,
+  $border_color,
+  $font_size: f.cvrt_px(vars.$regular-padding)
+) {
+  article:nth-child(#{$index}) {
+    width: 100%;
+    padding: f.cvrt_px(vars.$regular-padding);
+    border: f.cvrt_px(vars.$regular-border-w) solid $border_color;
+    text-align: center;
+    color: $color;
+    font-size: $font_size;
+  }
+}
+
+body {
+  div:first-child {
+    padding: f.cvrt_px(vars.$regular-padding);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: f.cvrt_px(vars.$regular-border-w) solid vars.$color-primary;
+    gap: f.cvrt_px(vars.$regular-padding);
+    h1:first-child {
+      color: vars.$color-tertiary;
+      text-decoration: f.cvrt_px(vars.$regular-border-w) underline
+        vars.$color-secondary;
+    }
+
+    section:nth-of-type(1) {
+      display: flex;
+      @include article-props(
+        $index: 1,
+        $color: vars.$color-primary,
+        $border_color: vars.$color-tertiary
+      );
+
+      @include article-props(
+        $index: 2,
+        $color: vars.$color-secondary,
+        $border_color: vars.$color-tertiary
+      );
+
+      @include article-props(
+        $index: 3,
+        $color: vars.$color-primary,
+        $border_color: vars.$color-tertiary
+      );
+
+      @include article-props(
+        $index: 4,
+        $color: vars.$color-secondary,
+        $border_color: vars.$color-tertiary
+      );
+    }
+
+    section:nth-of-type(2) {
+      width: 100%;
+      display: flex;
+      @include article-props(
+        $index: 1,
+        $color: vars.$color-tertiary,
+        $border_color: vars.$color-secondary,
+        $font_size: f.cvrt_px(vars.$footer-defualt-font)
+      );
+    }
+  }
+}
